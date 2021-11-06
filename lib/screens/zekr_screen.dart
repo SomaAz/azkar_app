@@ -124,6 +124,7 @@ class _ZekrScreenState extends State<ZekrScreen> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Card(
+                      elevation: 0,
                       color: primarySwatch.shade50,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25)),

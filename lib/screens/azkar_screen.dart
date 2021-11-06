@@ -31,7 +31,7 @@ class _AzkarScreenState extends State<AzkarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primarySwatch.shade50,
+      backgroundColor: Color(0xFFF7F6F1),
       appBar: AppBar(
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -72,10 +72,10 @@ class _AzkarScreenState extends State<AzkarScreen> {
           Expanded(
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
+                crossAxisCount: 2,
                 mainAxisSpacing: 10,
                 crossAxisSpacing: 10,
-                childAspectRatio: 2 / 2.7,
+                childAspectRatio: 1,
               ),
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
               itemCount: _searchCategories.length,

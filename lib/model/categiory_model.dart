@@ -1,8 +1,7 @@
 class CategoryModel {
-  final String name, image;
+  final String name;
 
   CategoryModel({
     required this.name,
-    this.image = "assets/images/duahands.svg",
   });
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-//mahmoud's one
 const primarySwatch = MaterialColor(
   0xFF57A971,
   {
@@ -16,3 +15,4 @@ const primarySwatch = MaterialColor(
     900: Color(0xFF57a971),
   },
 );
+const greyTextColor = Color(0xFF4E4D47);

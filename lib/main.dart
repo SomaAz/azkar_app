@@ -31,7 +31,7 @@ class AzkarApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: primarySwatch,
-        scaffoldBackgroundColor: Colors.grey[200],
+        scaffoldBackgroundColor: Color(0xFFF7F6F1),
         fontFamily: "almarai",
       ),
       home: AzkarScreen(),

@@ -45,7 +45,6 @@ class _ZekrScreenState extends State<ZekrScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
         title: Text(
@@ -117,71 +116,92 @@ class _ZekrScreenState extends State<ZekrScreen> {
         itemBuilder: (ctx, index) => LayoutBuilder(
           builder: (_, constraints) {
             return SingleChildScrollView(
-              child: Container(
-                color: Colors.white,
-                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 2),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Card(
-                      elevation: 0,
-                      color: primarySwatch.shade50,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25)),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 16,
-                        ),
-                        child: Column(
-                          children: [
-                            CenteredText(
-                              _azkar[index].zekr,
-                              fontSize: _fontSize.toDouble(),
-                              fontWeight: FontWeight.bold,
-                              height: 1.8,
-                              fontFamily: "noto",
-                              color: Colors.black,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+                  // height: constraints.maxHeight,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          CenteredText(
+                            _azkar[index].zekr,
+                            fontSize: _fontSize.toDouble(),
+                            fontWeight: FontWeight.bold,
+                            height: 1.8,
+                            fontFamily: "noto",
+                            color: greyTextColor,
+                          ),
+                          SizedBox(height: 20),
+                          if (_azkar[index].reference.isNotEmpty)
+                            SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                _azkar[index].reference,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: greyTextColor,
+                                  fontSize: 16,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                          ],
-                        ),
+                        ],
                       ),
-                    ),
-                    if (_azkar[index].count >= 2)
-                      CustomCard(
-                        text:
-                            "${_azkar[index].count.convertToArabicNumber()} ${_azkar[index].count < 3 ? _azkar[index].count == 1 ? ZekrScreen._marra : "مرتين" : _azkar[index].count < 11 ? ZekrScreen._marrat : ZekrScreen._marra}",
-                        height: 30,
-                        // width: 60,
-                        fontWeight: FontWeight.normal,
-                        color: primarySwatch.shade100,
-                        textColor: Colors.black,
-                        fontSize: 20,
-
-                        // color: Color(0xffFFF0BE),
+                      Column(
+                        children: [
+                          if (_azkar[index].count >= 2 ||
+                              _azkar[index].description.isNotEmpty)
+                            Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(35),
+                              ),
+                              elevation: 0,
+                              color: primarySwatch.withOpacity(.18),
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  children: [
+                                    if (_azkar[index].count >= 2)
+                                      Text(
+                                        "${_azkar[index].count.convertToArabicNumber()} ${_azkar[index].count < 3 ? _azkar[index].count == 1 ? ZekrScreen._marra : "مرتين" : _azkar[index].count < 11 ? ZekrScreen._marrat : ZekrScreen._marra}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: greyTextColor,
+                                          fontSize: 20,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    if (_azkar[index].count >= 2 &&
+                                        _azkar[index].description.isNotEmpty)
+                                      SizedBox(height: 10),
+                                    if (_azkar[index].description.isNotEmpty)
+                                      Text(
+                                        _azkar[index].description,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: greyTextColor,
+                                          fontSize: 16,
+                                          height: 1.5,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          SizedBox(height: 20),
+                          CenteredText(
+                            "صفحة ${(index + 1).convertToArabicNumber()} من ${_azkar.length.convertToArabicNumber()}",
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ],
                       ),
-                    if (_azkar[index].reference.isNotEmpty)
-                      CustomCard(
-                        text: _azkar[index].reference,
-                        height: 30,
-                        width: double.infinity,
-                        color: primarySwatch.shade100,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    if (_azkar[index].description.isNotEmpty)
-                      CustomCard(
-                        text: _azkar[index].description,
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                        color: primarySwatch.shade100,
-                        textHeight: 1.4,
-                      ),
-                    SizedBox(height: 20),
-                    CenteredText(
-                      "صفحة ${(index + 1).convertToArabicNumber()} من ${_azkar.length.convertToArabicNumber()}",
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             );

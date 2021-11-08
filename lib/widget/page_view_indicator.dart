@@ -21,7 +21,7 @@ class PageViewIndicator extends StatelessWidget {
   final Color selectedColor = primarySwatch;
 
   /// Size of points
-  final double size = 8.0;
+  final double size = 6.0;
 
   /// Spacing of points
   final double spacing = 2.0;

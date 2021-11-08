@@ -3,7 +3,7 @@ import 'package:azkar_app2/constance.dart';
 import 'package:azkar_app2/model/categiory_model.dart';
 import 'package:azkar_app2/model/zekr_model.dart';
 import 'package:azkar_app2/widget/centered_text.dart';
-import 'package:azkar_app2/widget/custom_card.dart';
+import 'package:azkar_app2/widget/page_view_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share/share.dart';
@@ -27,7 +27,20 @@ class _ZekrScreenState extends State<ZekrScreen> {
   );
   late final CategoryModel _category;
   final List<Zekr> _azkar = [];
-  int _fontSize = 19;
+  int _fontSize = 20;
+  final PageController _pageController = PageController();
+  double _currentPage = 0;
+
+  @override
+  void initState() {
+    _pageController.addListener(() {
+      setState(() {
+        _currentPage = _pageController.page!.toDouble();
+        _currentZekr = _azkar[_pageController.page!.toInt()];
+      });
+    });
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
@@ -110,103 +123,143 @@ class _ZekrScreenState extends State<ZekrScreen> {
         ],
         elevation: 0,
       ),
-      body: PageView.builder(
-        onPageChanged: (index) => setState(() => _currentZekr = _azkar[index]),
-        itemCount: _azkar.length,
-        itemBuilder: (ctx, index) => LayoutBuilder(
-          builder: (_, constraints) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 10),
-                  // height: constraints.maxHeight,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
+      body: Stack(
+        children: [
+          PageView.builder(
+            controller: _pageController,
+            itemCount: _azkar.length,
+            itemBuilder: (ctx, index) => LayoutBuilder(
+              builder: (_, constraints) {
+                return SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints:
+                        BoxConstraints(minHeight: constraints.maxHeight),
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+                      // height: constraints.maxHeight,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CenteredText(
-                            _azkar[index].zekr,
-                            fontSize: _fontSize.toDouble(),
-                            fontWeight: FontWeight.bold,
-                            height: 1.8,
-                            fontFamily: "noto",
-                            color: greyTextColor,
-                          ),
-                          SizedBox(height: 20),
-                          if (_azkar[index].reference.isNotEmpty)
-                            SizedBox(
-                              width: double.infinity,
-                              child: Text(
-                                _azkar[index].reference,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: greyTextColor,
-                                  fontSize: 16,
-                                ),
-                                textAlign: TextAlign.center,
+                          Column(
+                            children: [
+                              CenteredText(
+                                _azkar[index].zekr,
+                                fontSize: _fontSize.toDouble(),
+                                fontWeight: FontWeight.bold,
+                                height: 1.5,
+                                fontFamily: "noto",
+                                color: greyTextColor,
                               ),
-                            ),
+                              SizedBox(height: 20),
+                              if (_azkar[index].reference.isNotEmpty)
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: Text(
+                                    _azkar[index].reference,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: greyTextColor,
+                                      fontSize: 16,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              if (_azkar[index].count >= 2 ||
+                                  _azkar[index].description.isNotEmpty)
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(35),
+                                  ),
+                                  elevation: 0,
+                                  color: primarySwatch.withOpacity(.18),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      children: [
+                                        if (_azkar[index].count >= 2)
+                                          Text(
+                                            "${_azkar[index].count.convertToArabicNumber()} ${_azkar[index].count < 3 ? _azkar[index].count == 1 ? ZekrScreen._marra : "مرتين" : _azkar[index].count < 11 ? ZekrScreen._marrat : ZekrScreen._marra}",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: greyTextColor,
+                                              fontSize: 20,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        if (_azkar[index].count >= 2 &&
+                                            _azkar[index]
+                                                .description
+                                                .isNotEmpty)
+                                          SizedBox(height: 10),
+                                        if (_azkar[index]
+                                            .description
+                                            .isNotEmpty)
+                                          Text(
+                                            _azkar[index].description,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: greyTextColor,
+                                              fontSize: 16,
+                                              height: 1.5,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              // CenteredText(
+                              //   "صفحة ${(index + 1).convertToArabicNumber()} من ${_azkar.length.convertToArabicNumber()}",
+                              //   fontWeight: FontWeight.bold,
+                              //   color: greyTextColor,
+                              // ),
+                              SizedBox(height: 10),
+                            ],
+                          ),
                         ],
                       ),
-                      Column(
-                        children: [
-                          if (_azkar[index].count >= 2 ||
-                              _azkar[index].description.isNotEmpty)
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(35),
-                              ),
-                              elevation: 0,
-                              color: primarySwatch.withOpacity(.18),
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  children: [
-                                    if (_azkar[index].count >= 2)
-                                      Text(
-                                        "${_azkar[index].count.convertToArabicNumber()} ${_azkar[index].count < 3 ? _azkar[index].count == 1 ? ZekrScreen._marra : "مرتين" : _azkar[index].count < 11 ? ZekrScreen._marrat : ZekrScreen._marra}",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: greyTextColor,
-                                          fontSize: 20,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    if (_azkar[index].count >= 2 &&
-                                        _azkar[index].description.isNotEmpty)
-                                      SizedBox(height: 10),
-                                    if (_azkar[index].description.isNotEmpty)
-                                      Text(
-                                        _azkar[index].description,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: greyTextColor,
-                                          fontSize: 16,
-                                          height: 1.5,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          SizedBox(height: 20),
-                          CenteredText(
-                            "صفحة ${(index + 1).convertToArabicNumber()} من ${_azkar.length.convertToArabicNumber()}",
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
+                );
+              },
+            ),
+          ),
+          // SizedBox(
+          //   width: double.infinity,
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: List.generate(
+          //       _azkar.length,
+          //       (index) => Container(
+          //         margin: EdgeInsets.all(1),
+          //         color: _currentPage == index ? Colors.green : Colors.red,
+          //         width: 10,
+          //         height: 10,
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                PageViewIndicator(
+                  controller: _pageController,
+                  itemCount: _azkar.length,
                 ),
-              ),
-            );
-          },
-        ),
+                SizedBox(height: 10),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

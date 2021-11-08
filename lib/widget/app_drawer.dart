@@ -1,5 +1,6 @@
 import 'package:azkar_app2/constance.dart';
 import 'package:azkar_app2/screens/allah_names_screen.dart';
+import 'package:azkar_app2/screens/notifications_settings.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -62,6 +63,20 @@ class AppDrawer extends StatelessWidget {
             },
           ),
           Divider(thickness: 2, height: 0),
+          // ListTile(
+          //   title: Text(
+          //     "إعدادات الإشعار",
+          //     style: TextStyle(
+          //       fontSize: 16,
+          //       fontWeight: FontWeight.bold,
+          //     ),
+          //   ),
+          //   onTap: () {
+          //     Navigator.of(context)
+          //         .pushReplacementNamed(NotificationsSettings.routeName);
+          //   },
+          // ),
+          // Divider(thickness: 2, height: 0),
         ],
       ),
     );

@@ -1,7 +1,5 @@
 import 'package:azkar_app2/azkar_data.dart';
-import 'package:azkar_app2/constance.dart';
 import 'package:azkar_app2/model/categiory_model.dart';
-import 'package:azkar_app2/screens/deep_search_screen.dart';
 import 'package:azkar_app2/widget/app_drawer.dart';
 import 'package:azkar_app2/widget/category_card.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +29,6 @@ class _AzkarScreenState extends State<AzkarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF7F6F1),
       appBar: AppBar(
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.light,

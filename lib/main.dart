@@ -1,7 +1,7 @@
 import 'package:azkar_app2/constance.dart';
 import 'package:azkar_app2/screens/allah_names_screen.dart';
-import 'package:azkar_app2/screens/deep_search_screen.dart';
 import 'package:azkar_app2/screens/azkar_screen.dart';
+import 'package:azkar_app2/screens/notifications_settings.dart';
 import 'package:azkar_app2/screens/zekr_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -38,6 +38,7 @@ class AzkarApp extends StatelessWidget {
       routes: {
         ZekrScreen.routeName: (_) => ZekrScreen(),
         AllahNamesScreen.routeName: (_) => AllahNamesScreen(),
+        NotificationsSettings.routeName: (_) => NotificationsSettings(),
       },
     );
   }

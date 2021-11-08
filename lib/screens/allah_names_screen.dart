@@ -29,7 +29,7 @@ class AllahNamesScreen extends StatelessWidget {
           if (allahNamesList[index].split(":").length > 1) {
             return Card(
               elevation: 0,
-              color: primarySwatch.shade50,
+              color: primarySwatch.withOpacity(0.05),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25)),
               child: Padding(
@@ -41,12 +41,13 @@ class AllahNamesScreen extends StatelessWidget {
                       fontSize: 20,
                       fontWeight: FontWeight.w900,
                       fontFamily: "amiri",
+                      color: greyTextColor,
                     ),
                     CenteredText(
                       allahNamesList[index].split(":")[1].replaceAll("\n", ""),
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black,
+                      color: greyTextColor,
                       fontFamily: "amiri",
                     ),
                   ],

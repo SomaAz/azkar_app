@@ -3,7 +3,6 @@ import 'package:azkar_app2/model/categiory_model.dart';
 import 'package:azkar_app2/widget/app_drawer.dart';
 import 'package:azkar_app2/widget/category_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class AzkarScreen extends StatefulWidget {
   @override
@@ -15,6 +14,7 @@ class _AzkarScreenState extends State<AzkarScreen> {
 
   List<CategoryModel> _searchCategories = [];
 
+  // bool _isSearching = false;
   @override
   void initState() {
     super.initState();
@@ -31,7 +31,6 @@ class _AzkarScreenState extends State<AzkarScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
         iconTheme: IconThemeData(color: Colors.white),
         centerTitle: true,
         title: Text(
@@ -41,6 +40,16 @@ class _AzkarScreenState extends State<AzkarScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       setState(() {
+        //         _isSearching = !_isSearching;
+        //       });
+        //     },
+        //     icon: Icon(_isSearching ? Icons.cancel : Icons.search),
+        //   )
+        // ],
       ),
       body: Column(
         children: [
@@ -63,6 +72,7 @@ class _AzkarScreenState extends State<AzkarScreen> {
                 setState(() {
                   _searchCategories = searchedCategories;
                 });
+                print(_categories.length);
               },
             ),
           ),

@@ -1,5 +1,6 @@
+import 'package:azkar_app2/model/zerk_notification_time.dart';
 import 'package:azkar_app2/widget/app_drawer.dart';
-import 'package:azkar_app2/widget/notifications_setting.dart';
+import 'package:azkar_app2/widget/notification_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -35,16 +36,22 @@ class _NotificationsSettingsState extends State<NotificationsSettings> {
           padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
-              NotificationsSetting(
-                name: "أذكار الصباح",
-                time: time,
-                onPressed: () async {
-                  setState(() async {
-                    time = await showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay.now()) as TimeOfDay;
-                  });
-                },
+              SizedBox(
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    NotificationSetting(
+                      time: ZekrNotificationTime(
+                        hours: 7,
+                        name: "أذكار الصباح",
+                      ),
+                      onPressed: () {
+                        showTimePicker(
+                            context: context, initialTime: TimeOfDay.now());
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

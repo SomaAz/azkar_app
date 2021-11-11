@@ -21,10 +21,10 @@ class PageViewIndicator extends StatelessWidget {
   final Color selectedColor = primarySwatch;
 
   /// Size of points
-  final double size = 6.0;
+  final double size = 8.0;
 
   /// Spacing of points
-  final double spacing = 2.0;
+  final double spacing = 0.0;
 
   /// Point Widget
   Widget _buildIndicator(
@@ -39,7 +39,7 @@ class PageViewIndicator extends StatelessWidget {
       child: Center(
         child: Material(
           color: isCurrentPageSelected ? selectedColor : normalColor,
-          type: MaterialType.circle,
+          type: MaterialType.canvas,
           child: SizedBox(
             width: dotSize,
             height: dotSize,

@@ -160,7 +160,7 @@ class _ZekrScreenState extends State<ZekrScreen> {
                                     _azkar[index].reference,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      color: greyTextColor,
+                                      color: greyTextColor.withOpacity(.70),
                                       fontSize: 16,
                                     ),
                                     textAlign: TextAlign.center,
@@ -214,12 +214,12 @@ class _ZekrScreenState extends State<ZekrScreen> {
                                     ),
                                   ),
                                 ),
+                              SizedBox(height: 16),
                               // CenteredText(
                               //   "صفحة ${(index + 1).convertToArabicNumber()} من ${_azkar.length.convertToArabicNumber()}",
                               //   fontWeight: FontWeight.bold,
                               //   color: greyTextColor,
                               // ),
-                              SizedBox(height: 10),
                             ],
                           ),
                         ],
@@ -245,18 +245,45 @@ class _ZekrScreenState extends State<ZekrScreen> {
           //     ),
           //   ),
           // ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                PageViewIndicator(
-                  controller: _pageController,
-                  itemCount: _azkar.length,
-                ),
-                SizedBox(height: 10),
-              ],
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  LayoutBuilder(builder: (context, constraints) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(35),
+                      ),
+                      width: double.infinity,
+                      height: 8,
+                      child: Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: primarySwatch.withOpacity(.18),
+                              borderRadius: BorderRadius.circular(35),
+                            ),
+                          ),
+                          Container(
+                            width: (((_currentPage + 1) / _azkar.length) *
+                                    (100 / 100)) *
+                                constraints.maxWidth,
+                            decoration: BoxDecoration(
+                              color: primarySwatch,
+                              borderRadius: BorderRadius.circular(35),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+                  SizedBox(height: 15),
+                ],
+              ),
             ),
           ),
         ],

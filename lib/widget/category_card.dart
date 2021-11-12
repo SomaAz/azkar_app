@@ -11,6 +11,7 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      borderRadius: BorderRadius.circular(25),
       onTap: () {
         Navigator.of(context)
             .pushNamed(ZekrScreen.routeName, arguments: category);
@@ -21,23 +22,24 @@ class CategoryCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(35),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(6.0),
+          padding: const EdgeInsets.all(0.0),
           child: Container(
             decoration: BoxDecoration(
               color: primarySwatch,
               borderRadius: BorderRadius.circular(35),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(3.0),
+              padding: const EdgeInsets.all(4.0),
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Color(0xFF4E4D47).withOpacity(0.1),
+                    color: Color(0xFFE6E5E4).withOpacity(0.5),
                     width: 2,
                   ),
-                  borderRadius: BorderRadius.circular(35),
+                  borderRadius: BorderRadius.circular(30),
                 ),
-                child: SizedBox(
+                child: Container(
+                  padding: EdgeInsets.all(4),
                   width: double.infinity,
                   child: Center(
                     child: Text(

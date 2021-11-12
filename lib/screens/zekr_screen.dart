@@ -3,7 +3,7 @@ import 'package:azkar_app2/constance.dart';
 import 'package:azkar_app2/model/categiory_model.dart';
 import 'package:azkar_app2/model/zekr_model.dart';
 import 'package:azkar_app2/widget/centered_text.dart';
-import 'package:azkar_app2/widget/page_view_indicator.dart';
+import 'package:azkar_app2/helper/arabic_harakat_remover.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share/share.dart';
@@ -30,7 +30,7 @@ class _ZekrScreenState extends State<ZekrScreen> {
   int _fontSize = 20;
   final PageController _pageController = PageController();
   double _currentPage = 0;
-
+  bool _withHarakat = true;
   @override
   void initState() {
     _pageController.addListener(() {
@@ -71,7 +71,24 @@ class _ZekrScreenState extends State<ZekrScreen> {
             itemBuilder: (ctx) => [
               PopupMenuItem(
                 onTap: () {
-                  if (_fontSize < 25) setState(() => _fontSize++);
+                  setState(() {
+                    _withHarakat = !_withHarakat;
+                  });
+                },
+                child: ListTile(
+                  leading: Icon(
+                    _withHarakat
+                        ? Icons.cancel_outlined
+                        : Icons.add_box_outlined,
+                  ),
+                  title: _withHarakat
+                      ? Text("إزالة الحركات")
+                      : Text("إضافة الحركات"),
+                ),
+              ),
+              PopupMenuItem(
+                onTap: () {
+                  if (_fontSize < 26) setState(() => _fontSize++);
                 },
                 child: ListTile(
                   leading: Icon(Icons.add),
@@ -83,10 +100,7 @@ class _ZekrScreenState extends State<ZekrScreen> {
                   if (_fontSize > 14) setState(() => _fontSize--);
                 },
                 child: ListTile(
-                  leading: Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    child: Icon(Icons.minimize),
-                  ),
+                  leading: Icon(Icons.remove),
                   title: Text("تقليص حجم الخط"),
                 ),
               ),
@@ -145,7 +159,9 @@ class _ZekrScreenState extends State<ZekrScreen> {
                           Column(
                             children: [
                               CenteredText(
-                                _azkar[index].zekr,
+                                _withHarakat
+                                    ? _azkar[index].zekr
+                                    : _azkar[index].zekr.withOutHarakat(),
                                 fontSize: _fontSize.toDouble(),
                                 fontWeight: FontWeight.bold,
                                 height: 1.5,

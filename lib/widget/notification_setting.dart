@@ -1,13 +1,16 @@
 import 'package:azkar_app2/model/zerk_notification_time.dart';
 import 'package:flutter/material.dart';
+import 'package:azkar_app2/helper/arabic_number_converter.dart';
 
 class NotificationSetting extends StatelessWidget {
   final ZekrNotificationTime time;
+  final String name;
   final void Function() onPressed;
 
   const NotificationSetting({
     required this.time,
     required this.onPressed,
+    required this.name,
   });
   @override
   Widget build(BuildContext context) {
@@ -17,14 +20,14 @@ class NotificationSetting extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              time.name,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              name,
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
             Text(
-              "${time.hours}:${time.minutes}${time.isAm ? "ص" : "م"}",
+              "${time.hours.convertToArabicNumber()}:${time.minutes > 10 ? time.minutes.convertToArabicNumber() : "${0.convertToArabicNumber()}${time.minutes.convertToArabicNumber()}"} ${time.isAm ? "ص" : "م"}",
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 22,
               ),
             ),
           ],

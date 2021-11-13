@@ -41,13 +41,43 @@ class _NotificationsSettingsState extends State<NotificationsSettings> {
                 child: Column(
                   children: [
                     NotificationSetting(
+                      name: "أذكار الصباح",
                       time: ZekrNotificationTime(
                         hours: 7,
-                        name: "أذكار الصباح",
                       ),
                       onPressed: () {
                         showTimePicker(
-                            context: context, initialTime: TimeOfDay.now());
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                        );
+                      },
+                    ),
+                    SizedBox(height: 20),
+                    NotificationSetting(
+                      name: "أذكار المساء",
+                      time: ZekrNotificationTime(
+                        hours: 7,
+                        isAm: false,
+                      ),
+                      onPressed: () {
+                        showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                        );
+                      },
+                    ),
+                    SizedBox(height: 20),
+                    NotificationSetting(
+                      name: "صلاة الوتر",
+                      time: ZekrNotificationTime(
+                        hours: 10,
+                        isAm: false,
+                      ),
+                      onPressed: () {
+                        showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                        );
                       },
                     ),
                   ],

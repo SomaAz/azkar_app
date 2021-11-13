@@ -10,7 +10,7 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            color: primarySwatch.shade700,
+            color: primarySwatch,
             width: double.infinity,
             height: MediaQuery.of(context).size.height * .3,
             child: Column(
